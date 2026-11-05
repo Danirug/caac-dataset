@@ -7,9 +7,17 @@ This repository contains a labelled dataset of about 320 Git code changes drawn 
 - Project token ceiling: <number>
 
 ## Projects
+
 | name | upstream | fork | baseline SHA | tokens | split |
 |------|----------|------|--------------|--------|-------|
+| typescript-clean-architecture | [pvarentsov/typescript-clean-architecture](https://github.com/pvarentsov/typescript-clean-architecture) | [Danirug/…](https://github.com/Danirug/typescript-clean-architecture) | `5c29c39e402c67105ca66ec4dd2a4cf84b285e39` | 40,458 | test |
+| domain-driven-hexagon | [Sairyss/domain-driven-hexagon](https://github.com/Sairyss/domain-driven-hexagon) | [Danirug/…](https://github.com/Danirug/domain-driven-hexagon) | `5c2d15a7e2d69e83dfddf28468ee9f30e02c30de` | 20,949 | tuning |
+| typescript-microservice-template | [onlythompson/typescript-microservice-template](https://github.com/onlythompson/typescript-microservice-template) | [Danirug/…](https://github.com/Danirug/typescript-microservice-template) | `869eccad6fafdc7989986b26e8898c03b4e1b695` | 15,445 | test |
+| nestjs-clean-boilerplate | [Gi-jutsu/nestjs-clean-boilerplate](https://github.com/Gi-jutsu/nestjs-clean-boilerplate) | [Danirug/…](https://github.com/Danirug/nestjs-clean-boilerplate) | `7ed518ea0a7f52b2d6aab79e1806c092806bb0e0` | 10,129 | test |
+| reference-architecture-node | [eriksonwilliam/reference-architecture-node](https://github.com/eriksonwilliam/reference-architecture-node) | [Danirug/…](https://github.com/Danirug/reference-architecture-node) | `94703f25692f57aaac7c40e3f6951a04070c7ee5` | 5,260 | tuning |
+| nestjs-clean-architecture-boilerplate | [toyo12312/nestjs-clean-architecture-boilerplate](https://github.com/toyo12312/nestjs-clean-architecture-boilerplate) | [Danirug/…](https://github.com/Danirug/nestjs-clean-architecture-boilerplate) | `eb1ae324c13faca5538a21ae97112e222159949a` | 3,866 | test |
 
+All licences MIT. Tokens measured with `scripts/measure_tokens.py` on `src/**/*.ts` excluding tests. Ceiling: 100,000 tokens.
 ## Layout
 projects/         git submodules pinned at baseline SHA
 samples/<project>/<task>/   correct.patch, broken-Rxx.patch
