@@ -1,0 +1,9 @@
+# One entry per rule. category: explicit | context. static_detectable: true | false
+- id: R01
+  name: Domain must not import infrastructure
+  criterion: CA01
+  category: explicit
+  static_detectable: true
+  description:
+  violation_example:
+  compliant_lookalike:
