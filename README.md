@@ -2,9 +2,12 @@
 This repository contains a labelled dataset of about 320 Git code changes drawn from open-source TypeScript projects that follow Clean Architecture. Each change implements a realistic feature task; compliant changes follow the project’s layering, while violating changes break exactly one rule from a ten-rule set adapted from the CA01–CA08 criteria of Gonzalez Bravo et al. (2026), such as a domain module importing infrastructure or business logic placed in a controller. Every sample compiles and passes the project’s tests, so the dataset captures code that works but breaks the intended architecture. Labels record the rule, file and line of each violation, whether the rule is visible from the diff alone or requires wider context, and whether the sample is a deliberately tricky compliant case. Samples are generated with an AI coding assistant from a different model family than the one used to evaluate them, validated by build, test and dependency-cruiser gates, and checked by a second rater using Cohen’s kappa. The dataset exists to answer one question: how much repository context does an LLM need to detect architectural violations in a code change accurately, and at what cost. It is the evaluation set for the Context-Aware Architecture Checker
 
 ## Decisions
-- Checker model:         <name, context window>
-- Generator model:       <name, different family from checker>
-- Project token ceiling: <number>
+- Checker model:         Google Gemini Flash via the Gemini API free tier (exact model id: <copy from AI Studio>, 1M context)
+- Generator model:       OpenAI model via GitHub Copilot (Student Developer Pack); exact model id: <from Copilot settings>
+- Project token ceiling: 100,000 tokens (src/**/*.ts excluding tests), measured with scripts/measure_tokens.py
+- Dataset target:        500 validated samples; ~600 generated to allow for rejections
+- Budget:                $0 planned (free tiers); $20 reserve for paid Flash-Lite if daily quota is insufficient
+- Repeats:               3 repeats at temperature 0 on a 50-sample subset; single run on the remaining samples
 
 ## Projects
 
