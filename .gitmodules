@@ -1,0 +1,18 @@
+[submodule "projects/typescript-clean-architecture"]
+	path = projects/typescript-clean-architecture
+	url = https://github.com/Danirug/typescript-clean-architecture
+[submodule "projects/domain-driven-hexagon"]
+	path = projects/domain-driven-hexagon
+	url = https://github.com/Danirug/domain-driven-hexagon
+[submodule "projects/typescript-microservice-template"]
+	path = projects/typescript-microservice-template
+	url = https://github.com/Danirug/typescript-microservice-template
+[submodule "projects/nestjs-clean-boilerplate"]
+	path = projects/nestjs-clean-boilerplate
+	url = https://github.com/Danirug/nestjs-clean-boilerplate
+[submodule "projects/reference-architecture-node"]
+	path = projects/reference-architecture-node
+	url = https://github.com/Danirug/reference-architecture-node
+[submodule "projects/nestjs-clean-architecture-boilerplate"]
+	path = projects/nestjs-clean-architecture-boilerplate
+	url = https://github.com/Danirug/nestjs-clean-architecture-boilerplate
