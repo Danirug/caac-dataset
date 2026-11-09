@@ -16,3 +16,9 @@
 [submodule "projects/nestjs-clean-architecture-boilerplate"]
 	path = projects/nestjs-clean-architecture-boilerplate
 	url = https://github.com/Danirug/nestjs-clean-architecture-boilerplate
+[submodule "projects/nestjs-cqrs-clean-arch-example"]
+	path = projects/nestjs-cqrs-clean-arch-example
+	url = https://github.com/Danirug/nestjs-cqrs-clean-arch-example
+[submodule "projects/nestjs-clean-architecture-boilerplate-rezawr"]
+	path = projects/nestjs-clean-architecture-boilerplate-rezawr
+	url = https://github.com/Danirug/nestjs-clean-architecture-boilerplate-rezawr
