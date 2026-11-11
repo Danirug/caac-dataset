@@ -1,9 +1,586 @@
 # One entry per rule. category: explicit | context. static_detectable: true | false
 - id: R01
-  name: Domain must not import infrastructure
+  name: Domain must not depend on infrastructure
   criterion: CA01
   category: explicit
   static_detectable: true
-  description:
-  violation_example:
-  compliant_lookalike:
+
+  description: |
+    A source file belonging to the domain layer must not introduce
+    a dependency on a project module belonging to the infrastructure
+    layer.
+
+    Prohibited dependencies include runtime imports, type-only
+    imports, re-exports, and statically resolvable require() or
+    dynamic import() expressions.
+
+    Resolve path aliases and barrel re-exports to identify the
+    module that defines the referenced symbol.
+
+    Determine layer ownership using the project's documented
+    architecture mapping.
+
+  violation_condition: |
+    The change introduces a dependency whose source belongs to
+    the domain layer and whose resolved target belongs to the
+    infrastructure layer.
+
+  allowed_cases:
+    - Domain code referencing domain-owned entities and value objects.
+    - Domain code referencing domain-owned interfaces or ports.
+    - Infrastructure code implementing domain-owned interfaces.
+    - Dependency wiring outside the domain layer.
+
+  required_evidence:
+    - Path of the domain source file.
+    - Location and text of the introduced dependency.
+    - Resolved target file or symbol definition.
+    - Architecture mapping establishing both layer assignments.
+
+  review_policy: |
+    Report only dependencies introduced by the change.
+    Record pre-existing violations separately.
+
+    If the dependency target or layer ownership cannot be
+    established, mark the sample for manual review.
+
+    Record every other applicable rule violation before accepting
+    the sample into the single-violation subset.
+
+  static_detection_scope: |
+    Automated detection requires a project-specific layer mapping
+    and import resolution that includes aliases, re-exports,
+    and type-only imports.
+
+- id: R02
+  name: Domain must not depend on application
+  criterion: CA01
+  category: explicit
+  static_detectable: true
+
+  description: |
+    A source file belonging to the domain layer must not introduce
+    a dependency on a project module belonging to the application
+    layer.
+
+    Prohibited dependencies include runtime imports, type-only
+    imports, re-exports, and statically resolvable require() or
+    dynamic import() expressions.
+
+    Application modules include use cases, application services,
+    command handlers, query handlers, and application-owned DTOs
+    or interfaces.
+
+    Resolve path aliases and barrel re-exports to identify the
+    module that defines the referenced symbol.
+
+    Determine layer ownership using the project's documented
+    architecture mapping.
+
+  violation_condition: |
+    The change introduces a dependency whose source belongs to
+    the domain layer and whose resolved target belongs to the
+    application layer.
+
+  allowed_cases:
+    - Application code referencing domain entities and value objects.
+    - Application code invoking domain services.
+    - Domain code referencing domain-owned interfaces or ports.
+    - Application code implementing domain-owned interfaces.
+
+  required_evidence:
+    - Path of the domain source file.
+    - Location and text of the introduced dependency.
+    - Resolved target file or symbol definition.
+    - Architecture mapping establishing both layer assignments.
+
+  review_policy: |
+    Report only dependencies introduced by the change.
+    Record pre-existing violations separately.
+
+    If the dependency target or layer ownership cannot be
+    established, mark the sample for manual review.
+
+    Record every other applicable rule violation before accepting
+    the sample into the single-violation subset.
+
+  static_detection_scope: |
+    Automated detection requires a project-specific layer mapping
+    and import resolution that includes aliases, re-exports,
+    and type-only imports.
+
+- id: R03
+  name: Application must not depend on presentation
+  criterion: CA01
+  category: explicit
+  static_detectable: true
+
+  description: |
+    A source file belonging to the application layer must not
+    introduce a dependency on a project module belonging to
+    the presentation layer.
+
+    Prohibited dependencies include runtime imports, type-only
+    imports, re-exports, and statically resolvable require() or
+    dynamic import() expressions.
+
+    Presentation modules include HTTP controllers, route handlers,
+    UI components, presenters, and transport-specific request or
+    response definitions owned by the presentation layer.
+
+    Resolve path aliases and barrel re-exports to identify the
+    module that defines the referenced symbol.
+
+    Determine layer ownership using the project's documented
+    architecture mapping.
+
+  violation_condition: |
+    The change introduces a dependency whose source belongs to
+    the application layer and whose resolved target belongs to
+    the presentation layer.
+
+  allowed_cases:
+    - Presentation code invoking application use cases.
+    - Presentation code referencing application-owned input or output types.
+    - Application code referencing application-owned output ports.
+    - Presentation code implementing application-owned output ports.
+    - Application code referencing domain entities or services.
+
+  required_evidence:
+    - Path of the application source file.
+    - Location and text of the introduced dependency.
+    - Resolved target file or symbol definition.
+    - Architecture mapping establishing both layer assignments.
+
+  review_policy: |
+    Report only dependencies introduced by the change.
+    Record pre-existing violations separately.
+
+    If the dependency target or layer ownership cannot be
+    established, mark the sample for manual review.
+
+    Record every other applicable rule violation before accepting
+    the sample into the single-violation subset.
+
+  static_detection_scope: |
+    Automated detection requires a project-specific layer mapping
+    and import resolution that includes aliases, re-exports,
+    and type-only imports.
+
+- id: R04
+  name: Presentation must not bypass application use cases
+  criterion: CA02
+  category: context
+  static_detectable: false
+
+  description: |
+    Presentation code handling a user request must delegate
+    application operations to an application use case or
+    application service.
+
+    It must not perform those operations by directly invoking
+    database clients, persistence repositories, or external-service
+    adapters in place of the application layer.
+
+    This applies even when the repository or adapter is accessed
+    through an injected interface.
+
+    Presentation includes HTTP controllers, route handlers,
+    resolvers, and UI event handlers.
+
+    Determine layer ownership and component responsibilities
+    using the project's documented architecture mapping.
+
+  violation_condition: |
+    The change introduces an execution path in presentation code
+    that directly performs persistence or an external-service
+    operation for an application feature, bypassing the
+    application use case or application service.
+
+  allowed_cases:
+    - Presentation code invoking application use cases or services.
+    - Presentation code parsing requests and formatting responses.
+    - Presentation code performing transport-level input validation.
+    - Composition code constructing and connecting dependencies.
+    - Transport-level logging and response serialization.
+
+  required_evidence:
+    - Path and location of the presentation handler.
+    - Introduced call performing the application operation.
+    - Resolved repository, database client, or adapter being called.
+    - Evidence that the call bypasses application orchestration.
+    - Architecture mapping establishing component responsibilities.
+
+  review_policy: |
+    Report only bypasses introduced by the change.
+    Record pre-existing violations separately.
+
+    An import alone is insufficient to establish this violation.
+    Inspect how the imported or injected dependency is used.
+
+    If the component's role or the call's purpose cannot be
+    established, mark the sample for manual review.
+
+    Record every other applicable rule violation before accepting
+    the sample into the single-violation subset.
+
+  static_detection_scope: |
+    Import and call analysis can identify candidate bypasses.
+    Final assessment requires contextual review of responsibilities,
+    dependency wiring, and the operation being performed.
+- id: R05
+  name: Domain must remain independent of frameworks
+  criterion: CA03
+  category: explicit
+  static_detectable: true
+
+  description: |
+    Domain source code must not introduce dependencies on
+    web frameworks, dependency-injection frameworks, or
+    framework-specific validation and serialization mechanisms.
+
+    Prohibited dependencies include framework imports,
+    type-only imports, re-exports, decorators, framework base
+    classes, and framework-specific request or response types.
+
+    Resolve aliases and re-exports to identify the package
+    or module that defines the referenced symbol.
+
+    Determine domain ownership using the project's documented
+    architecture mapping.
+
+    Identify prohibited packages and symbols using a documented
+    framework dependency list. Third-party libraries must not
+    be classified as frameworks solely because they are external.
+
+  violation_condition: |
+    The change introduces a dependency from domain source code
+    to a prohibited framework package or framework-specific
+    symbol, including through a re-export.
+
+  allowed_cases:
+    - Domain code using plain TypeScript classes and interfaces.
+    - Domain code implementing business validation in plain TypeScript.
+    - Domain code using approved framework-independent utility libraries.
+    - Framework decorators and configuration outside the domain layer.
+    - External composition code registering plain domain classes.
+
+  required_evidence:
+    - Path of the domain source file.
+    - Location and text of the introduced framework dependency.
+    - Resolved framework package or symbol definition.
+    - Entry in the framework dependency list supporting the classification.
+    - Architecture mapping establishing domain ownership.
+
+  review_policy: |
+    Report only framework dependencies introduced by the change.
+    Record pre-existing violations separately.
+
+    If domain ownership, symbol resolution, or framework
+    classification cannot be established, mark the sample
+    for manual review.
+
+    Record every other applicable rule violation before accepting
+    the sample into the single-violation subset.
+
+  static_detection_scope: |
+    Automated detection requires a project-specific domain mapping,
+    a documented framework dependency list, and symbol resolution
+    covering aliases, re-exports, and type-only imports.
+
+- id: R06
+  name: Domain and application must not depend on persistence-specific types
+  criterion: CA04
+  category: explicit
+  static_detectable: true
+
+  description: |
+    Domain and application source code must not introduce
+    dependencies on ORM-specific or database-specific types,
+    decorators, base classes, or client APIs.
+
+    This includes ORM entities, generated persistence models,
+    database client types, query-builder types, and
+    database-specific query or transaction options.
+
+    The restriction applies to runtime imports, type-only
+    imports, re-exports, inheritance, and type annotations.
+
+    Resolve aliases and re-exports to identify the defining
+    package or module. Classify persistence dependencies using
+    a documented package and symbol list.
+
+  violation_condition: |
+    The change introduces a reference from domain or application
+    code to a type, decorator, base class, or API classified
+    as persistence-specific.
+
+  allowed_cases:
+    - Domain-owned entities and value objects without persistence coupling.
+    - Domain-owned or application-owned repository interfaces.
+    - Repository contracts using framework-independent domain or application types.
+    - Persistence-specific types contained within infrastructure adapters.
+    - Infrastructure mappings between persistence records and domain objects.
+
+  required_evidence:
+    - Path and location of the domain or application reference.
+    - Resolved definition of the persistence-specific dependency.
+    - Classification showing why the dependency is persistence-specific.
+    - Architecture mapping establishing the source layer.
+
+  review_policy: |
+    Report only persistence dependencies introduced by the change.
+    Record pre-existing violations separately.
+
+    Do not classify a type as persistence-specific solely because
+    it is named Entity, Model, Repository, or Transaction.
+
+    If ownership or persistence coupling cannot be established,
+    mark the sample for manual review.
+
+    Record every other applicable rule violation before accepting
+    the sample into the single-violation subset.
+
+  static_detection_scope: |
+    Automated detection requires layer mappings, a documented
+    persistence dependency list, and symbol resolution.
+    This rule covers explicit persistence dependencies.
+
+
+- id: R07
+  name: Use cases must access persistence through inward-owned abstractions
+  criterion: CA05
+  category: context
+  static_detectable: false
+
+  description: |
+    Application use cases must access persistence through
+    repository interfaces or abstract contracts owned by
+    the domain or application layer.
+
+    Use cases must not depend on concrete persistence
+    implementations or implementation-specific operations.
+
+    Dependency injection satisfies this rule only when the
+    use case depends on an inward-owned abstraction.
+
+    The abstraction's contract must be independent of the
+    concrete persistence implementation.
+
+  violation_condition: |
+    The change makes a use case depend on a concrete persistence
+    implementation, an infrastructure-owned repository contract,
+    or implementation-specific operations accessed by bypassing
+    an inward-owned abstraction.
+
+  allowed_cases:
+    - Use cases receiving domain-owned or application-owned repository interfaces.
+    - Use cases depending on inward-owned abstract repository classes.
+    - Infrastructure classes implementing inward-owned repository contracts.
+    - External composition code binding contracts to concrete implementations.
+    - Tests supplying fakes that implement the same repository contract.
+
+  required_evidence:
+    - Path and location of the use case dependency.
+    - Definition and ownership of its declared contract.
+    - Repository operations used by the use case.
+    - Evidence of concrete coupling or abstraction bypass.
+    - Relevant dependency wiring where needed to resolve ambiguity.
+
+  review_policy: |
+    Report only coupling introduced by the change.
+    Record pre-existing violations separately.
+
+    An interface name or injection annotation alone does not
+    establish dependency inversion. Inspect ownership and usage.
+
+    If the contract or implementation relationship cannot be
+    established, mark the sample for manual review.
+
+    Record every other applicable rule violation before accepting
+    the sample into the single-violation subset.
+
+  static_detection_scope: |
+    Type and dependency analysis can identify candidate violations.
+    Final assessment requires checking contract ownership,
+    implementation relationships, and actual usage.
+
+
+- id: R08
+  name: Application must perform external I/O through ports
+  criterion: CA05
+  category: context
+  static_detectable: false
+
+  description: |
+    Application code must delegate database, filesystem,
+    network, email, and message-broker operations to
+    domain-owned or application-owned ports.
+
+    Infrastructure adapters implement those ports and contain
+    the external I/O mechanisms.
+
+    Application code must not execute these operations directly
+    through platform APIs, database clients, or external SDKs.
+
+    A port must expose an application-relevant operation without
+    requiring the caller to manage the underlying transport
+    or storage mechanism.
+
+  violation_condition: |
+    The change introduces external I/O executed directly by
+    application code, including application-local helpers that
+    perform the I/O instead of delegating through a port.
+
+  allowed_cases:
+    - Application code invoking an inward-owned port.
+    - Infrastructure adapters performing I/O behind a port.
+    - Application code performing pure in-memory transformations.
+    - External composition code constructing and injecting adapters.
+    - Tests providing in-memory implementations of ports.
+
+  required_evidence:
+    - Path and location of the application operation.
+    - Call or helper that performs external I/O.
+    - Resolved platform API, client, or SDK involved.
+    - Evidence that execution occurs directly in application code.
+    - Architecture mapping and any relevant port definitions.
+
+  review_policy: |
+    Report only direct I/O introduced by the change.
+    Record pre-existing violations separately.
+
+    Importing a package alone does not establish that I/O occurs.
+    Inspect the operation and any helper it invokes.
+
+    If execution responsibility cannot be established,
+    mark the sample for manual review.
+
+    Record every other applicable rule violation before accepting
+    the sample into the single-violation subset.
+
+  static_detection_scope: |
+    Imports and calls can identify candidate I/O operations.
+    Final assessment requires examining helpers, port boundaries,
+    and the responsibilities of the calling code.
+
+
+- id: R09
+  name: Presentation must not implement business decisions
+  criterion: CA02
+  category: context
+  static_detectable: false
+
+  description: |
+    Presentation code must delegate business decisions to
+    domain or application components.
+
+    Business decisions include pricing, discounts, eligibility,
+    business-specific authorization, and permitted business
+    state transitions.
+
+    Presentation code may validate transport-level input,
+    translate requests into application inputs, invoke use
+    cases, and format results.
+
+    Classify logic by its meaning and responsibility rather
+    than by its length or the presence of conditional statements.
+
+  violation_condition: |
+    The change introduces a business calculation, decision,
+    or state-transition policy implemented in presentation code,
+    including a presentation-owned helper.
+
+  allowed_cases:
+    - Checking required request fields and input syntax.
+    - Parsing identifiers and converting transport representations.
+    - Invoking domain or application logic to obtain a business decision.
+    - Translating application outcomes into HTTP status codes.
+    - Formatting responses and rendering application-provided results.
+    - Transport authentication that delegates business-specific permissions.
+
+  required_evidence:
+    - Path and location of the presentation logic.
+    - Business decision or calculation introduced by the change.
+    - Explanation of the business policy encoded by that logic.
+    - Evidence that presentation owns the decision rather than delegates it.
+    - Architecture mapping establishing component responsibilities.
+
+  review_policy: |
+    Report only business decisions introduced by the change.
+    Record pre-existing violations separately.
+
+    A conditional statement alone is insufficient evidence.
+    Distinguish business policy from request validation,
+    response formatting, and display behavior.
+
+    If the responsibility is ambiguous, mark the sample
+    for manual review.
+
+    Record every other applicable rule violation before accepting
+    the sample into the single-violation subset.
+
+  static_detection_scope: |
+    Static analysis can locate logic in presentation modules.
+    Determining whether it implements business policy requires
+    contextual review.
+
+
+- id: R10
+  name: Domain and application must not construct infrastructure dependencies
+  criterion: CA05
+  category: context
+  static_detectable: false
+
+  description: |
+    Domain and application code must receive technical
+    dependencies through inward-owned contracts.
+
+    They must not construct concrete infrastructure dependencies
+    using constructors, infrastructure-specific factories,
+    or client-creation APIs.
+
+    Infrastructure dependencies include database repositories,
+    database clients, filesystem adapters, HTTP clients,
+    email adapters, and message-broker clients.
+
+    Constructing and connecting these dependencies belongs
+    in external composition code.
+
+  violation_condition: |
+    The change introduces construction of a concrete
+    infrastructure dependency inside domain or application code,
+    including through an implementation-specific factory.
+
+  allowed_cases:
+    - Domain code constructing domain entities and value objects.
+    - Application code constructing framework-independent data objects.
+    - Domain or application code receiving inward-owned ports.
+    - Calling an inward-owned factory port whose contract hides implementation details.
+    - External composition code constructing and injecting infrastructure adapters.
+
+  required_evidence:
+    - Path and location of the construction operation.
+    - Resolved constructor or factory definition.
+    - Evidence that the created object is an infrastructure dependency.
+    - Architecture mapping establishing the caller's layer.
+    - Relevant factory contract and implementation where applicable.
+
+  review_policy: |
+    Report only infrastructure construction introduced by the change.
+    Record pre-existing violations separately.
+
+    The presence of new alone is insufficient evidence.
+    Establish the role of the constructed object.
+
+    If a factory's responsibility or returned dependency cannot
+    be established, mark the sample for manual review.
+
+    Record every other applicable rule violation before accepting
+    the sample into the single-violation subset.
+
+  static_detection_scope: |
+    Constructor and factory-call analysis can identify candidates.
+    Final assessment requires resolving object responsibilities
+    and distinguishing implementation-specific creation from
+    calls through inward-owned factory ports.
