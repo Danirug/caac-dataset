@@ -1,0 +1,30 @@
+Command: npm ci
+Working directory: /Users/danirugihen/UCL SE /FINAL YEAR 2026/Honours Degree Project /Project /Dev/caac-dataset/projects/reference-architecture-node
+
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'eslint-visitor-keys@5.0.1',
+npm warn EBADENGINE   required: { node: '^20.19.0 || ^22.13.0 || >=24' },
+npm warn EBADENGINE   current: { node: 'v23.11.0', npm: '11.5.2' }
+npm warn EBADENGINE }
+npm warn EBADENGINE Unsupported engine {
+npm warn EBADENGINE   package: 'vitest@4.1.10',
+npm warn EBADENGINE   required: { node: '^20.0.0 || ^22.0.0 || >=24.0.0' },
+npm warn EBADENGINE   current: { node: 'v23.11.0', npm: '11.5.2' }
+npm warn EBADENGINE }
+
+added 399 packages, and audited 400 packages in 38s
+
+101 packages are looking for funding
+  run `npm fund` for details
+
+24 vulnerabilities (1 low, 12 moderate, 11 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+Exit code: 0

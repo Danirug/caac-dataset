@@ -1,0 +1,9 @@
+Command: npm run typecheck
+Working directory: /Users/danirugihen/UCL SE /FINAL YEAR 2026/Honours Degree Project /Project /Dev/caac-dataset/projects/reference-architecture-node
+
+
+> reference-architecture-node@0.1.0 typecheck
+> tsc --noEmit
+
+
+Exit code: 0

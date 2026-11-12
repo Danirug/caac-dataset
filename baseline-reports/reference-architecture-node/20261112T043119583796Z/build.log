@@ -1,0 +1,19 @@
+Command: npm run build
+Working directory: /Users/danirugihen/UCL SE /FINAL YEAR 2026/Honours Degree Project /Project /Dev/caac-dataset/projects/reference-architecture-node
+
+
+> reference-architecture-node@0.1.0 build
+> tsup
+
+CLI Building entry: src/main.ts
+CLI Using tsconfig: tsconfig.json
+CLI tsup v8.5.1
+CLI Using tsup config: /Users/danirugihen/UCL SE /FINAL YEAR 2026/Honours Degree Project /Project /Dev/caac-dataset/projects/reference-architecture-node/tsup.config.ts
+CLI Target: node22
+CLI Cleaning output folder
+ESM Build start
+ESM dist/main.js     13.35 KB
+ESM dist/main.js.map 31.93 KB
+ESM ⚡️ Build success in 10ms
+
+Exit code: 0
