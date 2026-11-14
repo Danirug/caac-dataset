@@ -1,0 +1,58 @@
+Command: npm run coverage
+Working directory: /Users/danirugihen/UCL SE /FINAL YEAR 2026/Honours Degree Project /Project /Dev/caac-dataset/projects/reference-architecture-node
+
+
+> reference-architecture-node@0.1.0 coverage
+> vitest run --coverage
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90m/Users/danirugihen/UCL SE /FINAL YEAR 2026/Honours Degree Project /Project /Dev/caac-dataset/projects/reference-architecture-node[39m
+      [2mCoverage enabled with [22m[33mv8[39m
+
+ [32m✓[39m tests/unit/domain/task-status.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/unit/domain/errors.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/unit/domain/task-id.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m tests/unit/infrastructure/in-memory-task-repository.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m tests/unit/infrastructure/env.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m tests/unit/domain/task.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/unit/infrastructure/error-handler.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m tests/unit/application/use-cases.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m tests/integration/task-api.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 187[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m9 passed[39m[22m[90m (9)[39m
+[2m      Tests [22m [1m[32m58 passed[39m[22m[90m (58)[39m
+[2m   Start at [22m 21:03:42
+[2m   Duration [22m 500ms[2m (transform 306ms, setup 0ms, import 599ms, tests 221ms, environment 1ms)[22m
+
+[34m % [39m[2mCoverage report from [22m[33mv8[39m
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |     100 |      100 |     100 |     100 |                   
+ application/dto   |     100 |      100 |     100 |     100 |                   
+  task-dto.ts      |     100 |      100 |     100 |     100 |                   
+ ...tion/use-cases |     100 |      100 |     100 |     100 |                   
+  complete-task.ts |     100 |      100 |     100 |     100 |                   
+  create-task.ts   |     100 |      100 |     100 |     100 |                   
+  delete-task.ts   |     100 |      100 |     100 |     100 |                   
+  get-task.ts      |     100 |      100 |     100 |     100 |                   
+  list-tasks.ts    |     100 |      100 |     100 |     100 |                   
+  start-task.ts    |     100 |      100 |     100 |     100 |                   
+ domain            |     100 |      100 |     100 |     100 |                   
+  errors.ts        |     100 |      100 |     100 |     100 |                   
+  task-id.ts       |     100 |      100 |     100 |     100 |                   
+  task-status.ts   |     100 |      100 |     100 |     100 |                   
+  task.ts          |     100 |      100 |     100 |     100 |                   
+ ...ructure/config |     100 |      100 |     100 |     100 |                   
+  env.ts           |     100 |      100 |     100 |     100 |                   
+ ...structure/http |     100 |      100 |     100 |     100 |                   
+  error-handler.ts |     100 |      100 |     100 |     100 |                   
+  schemas.ts       |     100 |      100 |     100 |     100 |                   
+  server.ts        |     100 |      100 |     100 |     100 |                   
+ ...re/http/routes |     100 |      100 |     100 |     100 |                   
+  task-routes.ts   |     100 |      100 |     100 |     100 |                   
+ ...re/persistence |     100 |      100 |     100 |     100 |                   
+  ...repository.ts |     100 |      100 |     100 |     100 |                   
+-------------------|---------|----------|---------|---------|-------------------
+
+Exit code: 0

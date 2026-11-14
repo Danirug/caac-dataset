@@ -17,12 +17,35 @@ This repository contains a labelled dataset of about 320 Git code changes drawn 
 | domain-driven-hexagon | [Sairyss/domain-driven-hexagon](https://github.com/Sairyss/domain-driven-hexagon) | [Danirug/…](https://github.com/Danirug/domain-driven-hexagon) | `5c2d15a7e2d69e83dfddf28468ee9f30e02c30de` | 20,949 | tuning |
 | typescript-microservice-template | [onlythompson/typescript-microservice-template](https://github.com/onlythompson/typescript-microservice-template) | [Danirug/…](https://github.com/Danirug/typescript-microservice-template) | `869eccad6fafdc7989986b26e8898c03b4e1b695` | 15,445 | test |
 | nestjs-clean-boilerplate | [Gi-jutsu/nestjs-clean-boilerplate](https://github.com/Gi-jutsu/nestjs-clean-boilerplate) | [Danirug/…](https://github.com/Danirug/nestjs-clean-boilerplate) | `7ed518ea0a7f52b2d6aab79e1806c092806bb0e0` | 10,129 | test |
-| reference-architecture-node | [eriksonwilliam/reference-architecture-node](https://github.com/eriksonwilliam/reference-architecture-node) | [Danirug/…](https://github.com/Danirug/reference-architecture-node) | `94703f25692f57aaac7c40e3f6951a04070c7ee5` | 5,260 | tuning |
+| reference-architecture-node | [eriksonwilliam/reference-architecture-node](https://github.com/eriksonwilliam/reference-architecture-node) | [Danirug/…](https://github.com/Danirug/reference-architecture-node) | `163c921c33e6eb396d8999df1d8336a41d1572c7` | 5,260 | tuning |
 | nestjs-clean-architecture-boilerplate | [toyo12312/nestjs-clean-architecture-boilerplate](https://github.com/toyo12312/nestjs-clean-architecture-boilerplate) | [Danirug/…](https://github.com/Danirug/nestjs-clean-architecture-boilerplate) | `eb1ae324c13faca5538a21ae97112e222159949a` | 3,866 | test |
 | nestjs-cqrs-clean-arch-example | [boy672820/nestjs-cqrs-clean-arch-example](https://github.com/boy672820/nestjs-cqrs-clean-arch-example) | [Danirug/…](https://github.com/Danirug/nestjs-cqrs-clean-arch-example) | `4c889fc3ba0d413d119cb297f6dbc19c4091d9ac` | 27,061 | test |
 | nestjs-clean-architecture-boilerplate-rezawr | [rezawr/nestjs-clean-architecture-boilerplate](https://github.com/rezawr/nestjs-clean-architecture-boilerplate) | [Danirug/…](https://github.com/Danirug/nestjs-clean-architecture-boilerplate-rezawr) | `197ed534c15be2c4d6faf7a4a2ac596aefd3493c` | 6,154 | test |
 
 All licences MIT. Tokens measured with `scripts/measure_tokens.py` on `src/**/*.ts` excluding tests. Ceiling: 100,000 tokens.
+
+
+### reference-architecture-node baseline adjustment
+
+The original baseline was
+`94703f25692f57aaac7c40e3f6951a04070c7ee5`.
+
+The adjusted baseline is
+`163c921c33e6eb396d8999df1d8336a41d1572c7`.
+
+HTTP task schemas now delegate task-length constraints to the domain
+under the dataset's R09 interpretation. Request type checks and UUID
+validation remain in the HTTP layer.
+
+This changes long-description handling from HTTP rejection to domain
+truncation. Regression tests cover blank titles, overlong titles,
+and description normalization and persistence.
+
+Validation run `20261112T153326796908Z` passed lint, type checking,
+58 tests, coverage thresholds, and build under Node 22.23.5.
+
+Automated architecture checks remain pending.
+
 ## Layout
 projects/         git submodules pinned at baseline SHA
 samples/<project>/<task>/   correct.patch, broken-Rxx.patch
