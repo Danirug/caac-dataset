@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Danirug/caac-dataset#readme",
   "private": true,
   "devDependencies": {
-    "dependency-cruiser": "18.7.2"
+    "dependency-cruiser": "18.7.2",
+    "typescript": "5.9.3"
   }
 }

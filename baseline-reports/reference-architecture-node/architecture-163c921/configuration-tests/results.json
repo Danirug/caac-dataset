@@ -1,0 +1,96 @@
+[
+  {
+    "case": "allowed-domain-import",
+    "probe_code": "export type { Task } from './task';\n",
+    "expected_rules": [],
+    "actual_rules": [],
+    "probe_analysed": true,
+    "exit_code": 0,
+    "parse_error": null,
+    "passed": true
+  },
+  {
+    "case": "R01",
+    "probe_code": "export type { InMemoryTaskRepository } from '../infrastructure/persistence/in-memory-task-repository';\n",
+    "expected_rules": [
+      "R01-domain-no-infrastructure"
+    ],
+    "actual_rules": [
+      "R01-domain-no-infrastructure"
+    ],
+    "probe_analysed": true,
+    "exit_code": 0,
+    "parse_error": null,
+    "passed": true
+  },
+  {
+    "case": "R02",
+    "probe_code": "export type { CreateTask } from '../application/use-cases/create-task';\n",
+    "expected_rules": [
+      "R02-domain-no-application"
+    ],
+    "actual_rules": [
+      "R02-domain-no-application"
+    ],
+    "probe_analysed": true,
+    "exit_code": 0,
+    "parse_error": null,
+    "passed": true
+  },
+  {
+    "case": "R03",
+    "probe_code": "export type { TaskUseCases } from '../infrastructure/http/routes/task-routes';\n",
+    "expected_rules": [
+      "R03-application-no-presentation"
+    ],
+    "actual_rules": [
+      "R03-application-no-presentation"
+    ],
+    "probe_analysed": true,
+    "exit_code": 0,
+    "parse_error": null,
+    "passed": true
+  },
+  {
+    "case": "R05",
+    "probe_code": "export type { FastifyInstance } from 'fastify';\n",
+    "expected_rules": [
+      "R05-domain-no-listed-frameworks"
+    ],
+    "actual_rules": [
+      "R05-domain-no-listed-frameworks"
+    ],
+    "probe_analysed": true,
+    "exit_code": 0,
+    "parse_error": null,
+    "passed": true
+  },
+  {
+    "case": "R06",
+    "probe_code": "export type { Pool } from 'pg';\n",
+    "expected_rules": [
+      "R06-inner-no-postgres-client"
+    ],
+    "actual_rules": [
+      "R06-inner-no-postgres-client"
+    ],
+    "probe_analysed": true,
+    "exit_code": 0,
+    "parse_error": null,
+    "passed": true
+  },
+  {
+    "case": "unresolved-import",
+    "probe_code": "export { missing } from './__missing_dependency_probe__';\n",
+    "expected_rules": [
+      "unresolved-imports"
+    ],
+    "actual_rules": [
+      "unresolved-imports"
+    ],
+    "probe_analysed": true,
+    "exit_code": 0,
+    "parse_error": null,
+    "passed": true
+  }
+]
