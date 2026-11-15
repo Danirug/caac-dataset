@@ -44,7 +44,9 @@ and description normalization and persistence.
 Validation run `20261112T153326796908Z` passed lint, type checking,
 58 tests, coverage thresholds, and build under Node 22.23.5.
 
-Automated architecture checks remain pending.
+Configured dependency checks completed: 27 modules and 68 dependencies
+analysed, with no configured violations. All seven configuration probes
+passed. See the baseline review for manual findings and validation limits.
 
 ## Layout
 projects/         git submodules pinned at baseline SHA
